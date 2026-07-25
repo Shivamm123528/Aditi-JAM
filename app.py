@@ -1,15 +1,25 @@
 import streamlit as st
-import json
 import os
 import requests
 import pandas as pd
 from datetime import date, datetime, timedelta
+from supabase import create_client, Client
 
 # ---------- CONFIG ----------
-DATA_FILE = "users_data.json"
-UPLOADS_DIR = "uploads"
 DAILY_TARGET = 50
 PENDING_LIMIT = 40  # if backlog exceeds this, streak resets
+STORAGE_BUCKET = "checkin-photos"  # Supabase Storage bucket for uploaded photos
+
+
+# ---------- SUPABASE CLIENT ----------
+@st.cache_resource
+def get_supabase_client() -> Client:
+    url = st.secrets["supabase"]["url"]
+    key = st.secrets["supabase"]["key"]
+    return create_client(url, key)
+
+
+supabase = get_supabase_client()
 
 st.set_page_config(
     page_title="Aditi's IIT JAM Mission",
@@ -370,17 +380,40 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ---------- DATA PERSISTENCE (multi-user) ----------
+# ---------- DATA PERSISTENCE (multi-user, Supabase-backed) ----------
 def load_users():
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, "r") as f:
-            return json.load(f)
-    return {}
+    response = supabase.table("users").select("*").execute()
+    users = {}
+    for row in response.data:
+        users[row["username"]] = {
+            "password": row["password"],
+            "current_streak": row["current_streak"],
+            "highest_streak": row["highest_streak"],
+            "last_upload_date": row["last_upload_date"],
+            "created_date": row["created_date"],
+            "history": row["history"] or {},
+        }
+    return users
+
+
+def save_user(username, record):
+    """Upsert a single user's record into the Supabase 'users' table."""
+    supabase.table("users").upsert({
+        "username": username,
+        "password": record["password"],
+        "current_streak": record["current_streak"],
+        "highest_streak": record["highest_streak"],
+        "last_upload_date": record["last_upload_date"],
+        "created_date": record["created_date"],
+        "history": record["history"],
+    }).execute()
 
 
 def save_users(users):
-    with open(DATA_FILE, "w") as f:
-        json.dump(users, f)
+    """Upsert every user in the dict. Kept for call sites that still touch
+    the whole dict; prefer save_user() when only one record changed."""
+    for username, record in users.items():
+        save_user(username, record)
 
 
 def new_user_record(password, today_str):
@@ -420,7 +453,7 @@ def check_for_broken_streak(users, username, today):
             record["current_streak"] = 0
         changed = True
     if changed:
-        save_users(users)
+        save_user(username, record)
     return users
 
 
@@ -468,24 +501,29 @@ def register_upload(users, username, questions_completed, file_bytes, file_ext, 
         record["current_streak"] = 0
 
     record["highest_streak"] = max(record["highest_streak"], record["current_streak"])
-    save_users(users)
+    save_user(username, record)
 
-    folder = os.path.join(UPLOADS_DIR, username)
-    os.makedirs(folder, exist_ok=True)
-    filepath = os.path.join(folder, f"{today_str}{file_ext}")
-    with open(filepath, "wb") as f:
-        f.write(file_bytes)
+    ext_clean = file_ext.lstrip(".").lower()
+    content_type = "image/jpeg" if ext_clean in ("jpg", "jpeg") else f"image/{ext_clean}"
+    storage_path = f"{username}/{today_str}{file_ext}"
+    supabase.storage.from_(STORAGE_BUCKET).upload(
+        storage_path,
+        file_bytes,
+        {"content-type": content_type, "upsert": "true"},
+    )
 
     return users
 
 
 def find_saved_image(username, date_str):
-    folder = os.path.join(UPLOADS_DIR, username)
-    if not os.path.isdir(folder):
+    try:
+        files = supabase.storage.from_(STORAGE_BUCKET).list(username)
+    except Exception:
         return None
-    for fname in os.listdir(folder):
-        if fname.startswith(date_str):
-            return os.path.join(folder, fname)
+    for f in files:
+        if f["name"].startswith(date_str):
+            storage_path = f"{username}/{f['name']}"
+            return supabase.storage.from_(STORAGE_BUCKET).get_public_url(storage_path)
     return None
 
 
@@ -590,7 +628,7 @@ if st.session_state.user is None:
                 st.error("Incorrect password for that username.")
         else:
             users[username] = new_user_record(password, today.isoformat())
-            save_users(users)
+            save_user(username, users[username])
             st.session_state.user = username
             st.success(f"Account created! Welcome, {username} 🎉")
             st.rerun()
