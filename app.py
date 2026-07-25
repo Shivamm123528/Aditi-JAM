@@ -274,6 +274,33 @@ st.markdown(
         caret-color: #000000 !important;
         border: 1px solid #e0c4a8 !important;
     }
+    /* Buttons: always visible, never dark-on-dark */
+    .stButton > button, .stDownloadButton > button {
+        background: linear-gradient(135deg, #ffffff, #ffe3c2) !important;
+        color: #3a2a20 !important;
+        border: 1.5px solid #f0a848 !important;
+        font-weight: 700 !important;
+        box-shadow: 0 3px 10px rgba(240,120,20,0.15);
+    }
+    .stButton > button:hover, .stDownloadButton > button:hover {
+        background: linear-gradient(135deg, #fff3e0, #ffcf94) !important;
+        color: #3a2a20 !important;
+        border: 1.5px solid #f09819 !important;
+    }
+    .stButton > button p, .stButton > button span, .stButton > button div {
+        color: #3a2a20 !important;
+    }
+    /* Expander headers: same treatment */
+    [data-testid="stExpander"] summary {
+        background: linear-gradient(135deg, #ffffff, #ffe3c2) !important;
+        border-radius: 10px !important;
+        border: 1.5px solid #f0a848 !important;
+    }
+    [data-testid="stExpander"] summary span,
+    [data-testid="stExpander"] summary p {
+        color: #3a2a20 !important;
+        font-weight: 700 !important;
+    }
     .big-title {
         font-size: 2.0rem;
         font-weight: 900;
@@ -608,8 +635,9 @@ else:
 
             nxt = next_title(record["current_streak"])
             if nxt:
-                nday, nname = nxt
-                st.caption(f"Next title in {nday - record['current_streak']} day(s): 🔒 {nname} (Day {nday})")
+                nday, _ = nxt
+                days_left = nday - record["current_streak"]
+                st.caption(f"🔒 Next title unlocks in {days_left} day(s) — keep the streak alive to find out what it is!")
 
             st.write("—" * 3)
             st.caption("Full title roadmap:")
