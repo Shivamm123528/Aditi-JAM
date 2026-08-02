@@ -1,13 +1,15 @@
-import streamlit as st
 import os
+import random
 import requests
 import pandas as pd
+import streamlit as st
+import streamlit.components.v1 as components
 from datetime import date, datetime, timedelta
 from supabase import create_client, Client
 
 # ---------- CONFIG ----------
-DAILY_TARGET = 50
-PENDING_LIMIT = 40  # if backlog exceeds this, streak resets
+DAILY_TARGET = 40
+PENDING_LIMIT = 35  # if backlog exceeds this, streak resets
 STORAGE_BUCKET = "checkin-photos"  # Supabase Storage bucket for uploaded photos
 
 
@@ -23,7 +25,7 @@ supabase = get_supabase_client()
 
 st.set_page_config(
     page_title="Aditi's IIT JAM Mission",
-    page_icon="🔥",
+    page_icon="🪄",
     layout="centered",
 )
 
@@ -47,7 +49,7 @@ HEADINGS = [
     "🎯 Aditi's IIT JAM Mission",
     "🚀 Operation JAM 2027: Daily Tracker",
     "⚡ Aditi vs. The Syllabus",
-    "🔥 The 50-Question Daily Grind",
+    "🪄 The 40-Question Daily Spell",
     "🧠 Aditi's Math Mastery Streak",
 ]
 
@@ -69,7 +71,7 @@ QUOTES = [
     "The streak isn't the goal. The habit is.",
     "You're not behind. You're building.",
     "Hard days make the streak mean something.",
-    "Nobody sees the 50 questions. Everybody sees the result.",
+    "Nobody sees the 40 questions. Everybody sees the result.",
     "Momentum is built one upload at a time.",
     "Study now, thank yourself later.",
     "Slow progress is still progress.",
@@ -81,7 +83,7 @@ QUOTES = [
     "Focus on the next question, not the whole mountain.",
     "You show up even when it's boring. That's the whole game.",
     "Confidence is built in the reps nobody applauds.",
-    "Today's 50 questions are tomorrow's easy answers.",
+    "Today's 40 questions are tomorrow's easy answers.",
     "Keep going. It compounds.",
     "You are one upload away from a new personal best.",
     "Effort compounds quietly until it doesn't.",
@@ -99,12 +101,12 @@ def get_daily_quote(today):
 SHIVAMS_NOTE = (
     "Hey Aditi, I built this app specifically for you. I know how much you value your "
     "snap streaks, so I wanted to channel that exact same energy into your JAM maths prep. "
-    "I\u2019ve put a lot of hope into this project because I know how hard you're working. "
+    "I’ve put a lot of hope into this project because I know how hard you're working. "
     "Keep the streak active, don't break the chain, and crack this exam. Make me proud! "
-    "Let's get that streak to 100.\n\n\u2014 Shivam"
+    "Let's get that streak to 100.\n\n— Shivam"
 )
 
-# ---------- STREAK TITLES (day, title-with-emoji) ----------
+# ---------- STREAK TITLES ----------
 TITLE_MILESTONES = [
     (1, "🌱 The First Step"),
     (2, "🔥 Spark Ignited"),
@@ -200,64 +202,85 @@ def next_title(streak):
     return upcoming[0] if upcoming else None
 
 
-def milestone_message(streak):
-    title = current_title(streak)
-    if title and title[0] == streak:
-        day, name = title
-        return f"🏆 Day {day} unlocked: {name}!"
-    return None
-
-
-# ---------- CUTE BABY MOOD ILLUSTRATION (original simple artwork) ----------
-def baby_face_svg(mood="sad"):
+# ---------- WIZARD SVG & MOOD ----------
+def wizard_svg(mood="sad"):
     if mood == "happy":
-        eyebrow_l = "M45,68 Q60,58 75,68"
-        eyebrow_r = "M85,68 Q100,58 115,68"
-        mouth = "M60,108 Q80,128 100,108"
-        tear = ""
+        eyebrow_l = "M45,66 Q60,56 75,66"
+        eyebrow_r = "M85,66 Q100,56 115,66"
+        mouth = "M58,104 Q80,124 102,104"
+        wand_glow = '<circle cx="132" cy="60" r="7" fill="#ffe066" opacity="0.9"/><circle cx="132" cy="60" r="13" fill="#ffe066" opacity="0.35"/>'
+        sparkles = (
+            '<circle cx="30" cy="40" r="2.5" fill="#ffe066"/>'
+            '<circle cx="20" cy="70" r="2" fill="#ffe066"/>'
+            '<circle cx="140" cy="100" r="2" fill="#ffe066"/>'
+        )
+        owl_eye = '<circle cx="24" cy="128" r="4" fill="#2b1a12"/><circle cx="36" cy="128" r="4" fill="#2b1a12"/>'
     else:
-        eyebrow_l = "M45,72 Q60,62 75,72"
-        eyebrow_r = "M85,72 Q100,62 115,72"
-        mouth = "M60,122 Q80,105 100,122"
-        tear = '<path d="M52,92 q-5,10 0,17 q5,-7 0,-17" fill="#7ec8f2"/>'
+        eyebrow_l = "M45,70 Q60,62 75,70"
+        eyebrow_r = "M85,70 Q100,62 115,70"
+        mouth = "M58,118 Q80,104 102,118"
+        wand_glow = ""
+        sparkles = ""
+        owl_eye = '<path d="M20,128 q4,4 8,0" stroke="#2b1a12" stroke-width="2" fill="none"/><path d="M32,128 q4,4 8,0" stroke="#2b1a12" stroke-width="2" fill="none"/>'
 
-    return f'''
-    <svg width="110" height="110" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50,32 Q80,8 110,32 Q95,20 80,26 Q65,20 50,32 Z" fill="#7a4a2a"/>
-      <circle cx="80" cy="88" r="62" fill="#ffe0c2" stroke="#f2b880" stroke-width="3"/>
-      <circle cx="52" cy="102" r="9" fill="#ffb0a0" opacity="0.7"/>
-      <circle cx="108" cy="102" r="9" fill="#ffb0a0" opacity="0.7"/>
-      <circle cx="60" cy="86" r="6" fill="#3a2a20"/>
-      <circle cx="100" cy="86" r="6" fill="#3a2a20"/>
-      <path d="{eyebrow_l}" stroke="#3a2a20" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="{eyebrow_r}" stroke="#3a2a20" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="{mouth}" stroke="#a15c3e" stroke-width="4" fill="none" stroke-linecap="round"/>
-      {tear}
+    return f"""
+    <svg width="160" height="150" viewBox="0 0 160 150" xmlns="http://www.w3.org/2000/svg">
+      <!-- little owl companion -->
+      <ellipse cx="28" cy="120" rx="18" ry="16" fill="#8a7460"/>
+      <path d="M14,110 L22,98 L26,112 Z" fill="#8a7460"/>
+      <path d="M42,110 L34,98 L30,112 Z" fill="#8a7460"/>
+      {owl_eye}
+      <path d="M28,132 L24,138 L32,138 Z" fill="#e0a030"/>
+
+      <!-- wizard hat -->
+      <path d="M80,6 L108,64 L52,64 Z" fill="#3a1c71"/>
+      <ellipse cx="80" cy="64" rx="30" ry="7" fill="#2a1050"/>
+      <rect x="60" y="52" width="40" height="7" fill="#d4af37"/>
+      <circle cx="80" cy="20" r="4" fill="#d4af37"/>
+
+      <!-- face -->
+      <circle cx="80" cy="86" r="30" fill="#f2c9a0" stroke="#caa06a" stroke-width="2"/>
+      <circle cx="70" cy="86" r="3.5" fill="#2b1a12"/>
+      <circle cx="90" cy="86" r="3.5" fill="#2b1a12"/>
+      <path d="{eyebrow_l}" stroke="#2b1a12" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="{eyebrow_r}" stroke="#2b1a12" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="{mouth}" stroke="#7a3e2e" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+      <!-- robe -->
+      <path d="M50,112 L110,112 L124,148 L36,148 Z" fill="#5c1e8a"/>
+      <path d="M50,112 L110,112 L118,128 L42,128 Z" fill="#7a2eb0"/>
+      <circle cx="80" cy="122" r="3" fill="#d4af37"/>
+
+      <!-- wand -->
+      <line x1="108" y1="96" x2="132" y2="60" stroke="#4a2e1a" stroke-width="4" stroke-linecap="round"/>
+      {wand_glow}
+      {sparkles}
     </svg>
-    '''
+    """
 
 
 def mood_card(uploaded_today):
     if uploaded_today:
-        svg = baby_face_svg("happy")
-        text = "Yay! You showed up today! Keep the streak alive! 🎉"
+        svg = wizard_svg("happy")
+        text = "Brilliant spellwork today! Your magical streak grows stronger! 🪄✨"
     else:
-        svg = baby_face_svg("sad")
-        text = "I haven't seen today's upload yet... please study! 📚"
+        svg = wizard_svg("sad")
+        text = "My wand's gone dim... please cast today's questions to light it back up! 📖✨"
     return f"""
-    <div style="display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,0.65);
+    <div style="display:flex;align-items:center;gap:1rem;background:rgba(20,10,45,0.45);
+                border:1px solid rgba(212,175,55,0.4);
                 border-radius:18px;padding:0.9rem 1.1rem;margin-bottom:0.6rem;
-                box-shadow:0 4px 14px rgba(0,0,0,0.06);">
+                box-shadow:0 4px 14px rgba(0,0,0,0.35);">
         <div>{svg}</div>
-        <div style="font-weight:700;color:#4a3626;font-size:1.05rem;">{text}</div>
+        <div style="font-weight:700;color:#f5e6c8;font-size:1.02rem;">{text}</div>
     </div>
     """
 
 
 def flame_display(streak):
     if streak == 0:
-        return "💤"
-    return "🔥" * min(streak, 10)
+        return "🌑"
+    return "✨" * min(streak, 10)
 
 
 # ---------- STYLING ----------
@@ -265,7 +288,14 @@ st.markdown(
     """
     <style>
     .stApp {
-        background: linear-gradient(160deg, #fff7ed 0%, #ffe8d6 40%, #ffd9c2 100%);
+        background:
+            radial-gradient(circle at 15% 15%, rgba(255,255,255,0.10) 1.5px, transparent 1.5px),
+            radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08) 1.5px, transparent 1.5px),
+            radial-gradient(circle at 40% 80%, rgba(255,255,255,0.08) 1.5px, transparent 1.5px),
+            radial-gradient(circle at 85% 75%, rgba(255,255,255,0.07) 1.5px, transparent 1.5px),
+            radial-gradient(ellipse at top, #3a1c71 0%, #241049 45%, #120a26 100%);
+        background-size: 180px 180px, 220px 220px, 200px 200px, 240px 240px, cover;
+        background-attachment: fixed;
     }
     .main .block-container {
         padding-top: 1.5rem;
@@ -276,111 +306,79 @@ st.markdown(
     .stMarkdown, .stMarkdown p, .stCaption, [data-testid="stCaptionContainer"],
     label, .stTextInput label p, .stNumberInput label p, .stRadio label p,
     h1, h2, h3, h4, h5, h6, .stSubheader {
-        color: #3a2a20 !important;
+        color: #f5e6c8 !important;
     }
     input[type="text"], input[type="password"], input[type="number"], textarea {
         background-color: #ffffff !important;
         color: #000000 !important;
         caret-color: #000000 !important;
-        border: 1px solid #e0c4a8 !important;
+        border: 1px solid #d4af37 !important;
     }
-    /* Buttons: always visible, never dark-on-dark */
     .stButton > button, .stDownloadButton > button {
-        background: linear-gradient(135deg, #ffffff, #ffe3c2) !important;
-        color: #3a2a20 !important;
-        border: 1.5px solid #f0a848 !important;
+        background: linear-gradient(135deg, #3a1c71, #6a3de8) !important;
+        color: #f5e6c8 !important;
+        border: 1.5px solid #d4af37 !important;
         font-weight: 700 !important;
-        box-shadow: 0 3px 10px rgba(240,120,20,0.15);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.35);
     }
     .stButton > button:hover, .stDownloadButton > button:hover {
-        background: linear-gradient(135deg, #fff3e0, #ffcf94) !important;
-        color: #3a2a20 !important;
-        border: 1.5px solid #f09819 !important;
+        background: linear-gradient(135deg, #4c2a8e, #8353ff) !important;
+        color: #fff3d0 !important;
+        border: 1.5px solid #ffe066 !important;
     }
-    .stButton > button p, .stButton > button span, .stButton > button div {
-        color: #3a2a20 !important;
-    }
-    /* Expander headers: same treatment */
     [data-testid="stExpander"] summary {
-        background: linear-gradient(135deg, #ffffff, #ffe3c2) !important;
+        background: linear-gradient(135deg, #3a1c71, #6a3de8) !important;
         border-radius: 10px !important;
-        border: 1.5px solid #f0a848 !important;
-    }
-    [data-testid="stExpander"] summary span,
-    [data-testid="stExpander"] summary p {
-        color: #3a2a20 !important;
-        font-weight: 700 !important;
+        border: 1.5px solid #d4af37 !important;
     }
     .big-title {
         font-size: 2.0rem;
         font-weight: 900;
         text-align: center;
         margin-bottom: 0.1rem;
-        background: linear-gradient(90deg, #ff512f, #f09819);
+        background: linear-gradient(90deg, #d4af37, #fff3d0, #d4af37);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    .subtitle {
-        text-align: center;
-        color: #6b4a38 !important;
-        margin-bottom: 0.3rem;
-        font-size: 0.95rem;
-    }
-    .synced-date {
-        text-align: center;
-        color: #8a6a52 !important;
-        font-size: 0.85rem;
-        margin-bottom: 1rem;
-    }
+    .subtitle { text-align: center; color: #d8c9a3 !important; margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .synced-date { text-align: center; color: #b8a888 !important; font-size: 0.85rem; margin-bottom: 1rem; }
     .quote-card {
-        background: rgba(255,255,255,0.6);
-        border-left: 5px solid #f09819;
+        background: rgba(255,255,255,0.06);
+        border-left: 5px solid #d4af37;
         border-radius: 12px;
         padding: 0.9rem 1.1rem;
         font-style: italic;
-        color: #4a3626 !important;
+        color: #f5e6c8 !important;
         margin-bottom: 1.2rem;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        box-shadow: 0 4px 14px rgba(0,0,0,0.3);
     }
-    .streak-box, .progress-box {
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
+    .streak-box, .progress-box { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
     .streak-card {
         flex: 1;
-        background: linear-gradient(160deg, #ffffff, #ffe9d6);
+        background: linear-gradient(160deg, rgba(255,255,255,0.10), rgba(90,30,140,0.25));
         border-radius: 18px;
         padding: 1.3rem 0.5rem;
         text-align: center;
-        box-shadow: 0 6px 16px rgba(240,90,10,0.15);
-        border: 1px solid rgba(255,255,255,0.6);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+        border: 1px solid rgba(212,175,55,0.4);
     }
-    .streak-card.high { background: linear-gradient(160deg, #ffffff, #d9f7e3); box-shadow: 0 6px 16px rgba(30,150,80,0.15); }
-    .streak-card.pending { background: linear-gradient(160deg, #ffffff, #ffe0e0); box-shadow: 0 6px 16px rgba(200,40,40,0.12); }
-    .streak-number { font-size: 2.4rem; font-weight: 900; color: #3a2a20 !important; }
-    .streak-card.high .streak-number { color: #1f6d3f !important; }
-    .streak-card.pending .streak-number { color: #b03030 !important; }
-    .streak-label { font-size: 0.78rem; color: #77675e !important; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 0.2rem; }
-    .login-card { background: rgba(255,255,255,0.75); border-radius: 20px; padding: 1.6rem 1.4rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); margin-top: 0.6rem; }
+    .streak-card.high { background: linear-gradient(160deg, rgba(255,255,255,0.10), rgba(30,110,70,0.3)); }
+    .streak-card.pending { background: linear-gradient(160deg, rgba(255,255,255,0.10), rgba(140,30,30,0.3)); }
+    .streak-number { font-size: 2.4rem; font-weight: 900; color: #f5e6c8 !important; }
+    .streak-label { font-size: 0.78rem; color: #cbb98f !important; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 0.2rem; }
+    .login-card { background: rgba(20,10,45,0.55); border-radius: 20px; padding: 1.6rem 1.4rem; box-shadow: 0 8px 24px rgba(0,0,0,0.4); margin-top: 0.6rem; border: 1px solid rgba(212,175,55,0.35); }
     .flame-row { text-align: center; font-size: 1.5rem; letter-spacing: 0.15em; margin-bottom: 0.4rem; }
-    .stApp .milestone-banner { text-align: center; background: linear-gradient(90deg, #f09819, #ff512f); color:#fff !important; border-radius: 12px; padding: 0.6rem; font-weight: 700; margin-bottom: 1rem; }
-    .stApp .title-unlocked { text-align: center; background: linear-gradient(90deg, #6a3de8, #a06bff); color:#fff !important; border-radius: 14px; padding: 0.9rem; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.4rem; }
-    .stApp .title-unlocked * { color: #fff !important; }
-    .stApp .title-locked { text-align: center; background: #eee2d6; color:#7a6a5c !important; border-radius: 14px; padding: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .note-card { background: linear-gradient(135deg, #ffe8e8, #ffd8ec); border-radius: 16px; padding: 1.1rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 6px 16px rgba(255,80,150,0.15); font-size: 0.98rem; line-height: 1.5; color:#5a2b3a !important; white-space: pre-line; }
-    .tutorial-glow { border-radius: 18px; box-shadow: 0 0 0 4px #ffe066, 0 0 24px 8px rgba(255,190,40,0.7); padding: 0.5rem; margin-bottom: 0.4rem; transition: box-shadow 0.3s; }
-    .tutorial-callout { background: #2b2b2b; color: #ffe066 !important; border-radius: 10px; padding: 0.7rem 1rem; margin-bottom: 0.6rem; font-weight: 600; }
-    .tutorial-callout * { color: #ffe066 !important; }
-    .pending-warning { background: #fff0e0; border-left: 5px solid #e07b00; border-radius: 10px; padding: 0.7rem 1rem; margin: 0.6rem 0; color:#7a3e00 !important; font-weight:600; }
-    .pending-ok { background: #e6f8ea; border-left: 5px solid #2e9e50; border-radius: 10px; padding: 0.7rem 1rem; margin: 0.6rem 0; color:#1f6d3f !important; font-weight:600; }
+    .title-unlocked { text-align: center; background: linear-gradient(90deg, #6a3de8, #a06bff); color:#fff !important; border-radius: 14px; padding: 0.9rem; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.4rem; border: 1px solid rgba(212,175,55,0.5); }
+    .title-locked { text-align: center; background: rgba(255,255,255,0.06); color:#cbb98f !important; border-radius: 14px; padding: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; border: 1px dashed rgba(212,175,55,0.3); }
+    .note-card { background: linear-gradient(135deg, #3a1030, #5c1e3a); border: 1px solid #d4af37; border-radius: 16px; padding: 1.1rem 1.3rem; margin-bottom: 1rem; box-shadow: 0 6px 16px rgba(0,0,0,0.35); font-size: 0.98rem; line-height: 1.5; color:#f5e6c8 !important; white-space: pre-line; }
+    .tutorial-glow { border-radius: 18px; box-shadow: 0 0 0 4px #ffe066, 0 0 24px 8px rgba(255,224,102,0.6); padding: 0.5rem; margin-bottom: 0.4rem; }
+    .tutorial-callout { background: rgba(10,5,20,0.85); color: #ffe066 !important; border: 1px solid #ffe066; border-radius: 10px; padding: 0.7rem 1rem; margin-bottom: 0.6rem; font-weight: 600; }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# ---------- DATA PERSISTENCE (multi-user, Supabase-backed) ----------
+# ---------- DATA PERSISTENCE ----------
 def load_users():
     response = supabase.table("users").select("*").execute()
     users = {}
@@ -392,12 +390,12 @@ def load_users():
             "last_upload_date": row["last_upload_date"],
             "created_date": row["created_date"],
             "history": row["history"] or {},
+            "pending_reset_date": row.get("pending_reset_date"),
         }
     return users
 
 
 def save_user(username, record):
-    """Upsert a single user's record into the Supabase 'users' table."""
     supabase.table("users").upsert({
         "username": username,
         "password": record["password"],
@@ -406,14 +404,8 @@ def save_user(username, record):
         "last_upload_date": record["last_upload_date"],
         "created_date": record["created_date"],
         "history": record["history"],
+        "pending_reset_date": record.get("pending_reset_date"),
     }).execute()
-
-
-def save_users(users):
-    """Upsert every user in the dict. Kept for call sites that still touch
-    the whole dict; prefer save_user() when only one record changed."""
-    for username, record in users.items():
-        save_user(username, record)
 
 
 def new_user_record(password, today_str):
@@ -424,6 +416,7 @@ def new_user_record(password, today_str):
         "last_upload_date": None,
         "created_date": today_str,
         "history": {},
+        "pending_reset_date": None,
     }
 
 
@@ -451,25 +444,24 @@ def check_for_broken_streak(users, username, today):
         backfill_missing_days(record, today)
         if record["current_streak"] != 0:
             record["current_streak"] = 0
+        record["pending_reset_date"] = (today - timedelta(days=1)).isoformat()
         changed = True
     if changed:
         save_user(username, record)
     return users
 
 
-def compute_progress(history):
-    """Replays the whole history to get a running total of questions solved
-    and the current pending backlog (days where fewer than 50 were logged
-    build up backlog; extra questions on a good day pay it down)."""
+def compute_progress(history, reset_date=None):
     total_solved = 0
     pending = 0
     for d in sorted(history.keys()):
         entry = history[d]
         q = entry.get("questions", 0) if entry.get("uploaded") else 0
         total_solved += q
-        shortfall = max(0, DAILY_TARGET - q)
-        surplus = max(0, q - DAILY_TARGET)
-        pending = max(0, pending + shortfall - surplus)
+        if reset_date is None or d > reset_date:
+            shortfall = max(0, DAILY_TARGET - q)
+            surplus = max(0, q - DAILY_TARGET)
+            pending = max(0, pending + shortfall - surplus)
     return total_solved, pending
 
 
@@ -495,10 +487,10 @@ def register_upload(users, username, questions_completed, file_bytes, file_ext, 
         "questions": questions_completed,
     }
 
-    # Recompute backlog; if it's grown past the limit, the streak breaks
-    _, pending = compute_progress(record["history"])
+    _, pending = compute_progress(record["history"], record.get("pending_reset_date"))
     if pending > PENDING_LIMIT:
         record["current_streak"] = 0
+        record["pending_reset_date"] = today_str
 
     record["highest_streak"] = max(record["highest_streak"], record["current_streak"])
     save_user(username, record)
@@ -511,7 +503,6 @@ def register_upload(users, username, questions_completed, file_bytes, file_ext, 
         file_bytes,
         {"content-type": content_type, "upsert": "true"},
     )
-
     return users
 
 
@@ -527,14 +518,14 @@ def find_saved_image(username, date_str):
     return None
 
 
-# ---------- TUTORIAL / GUIDED TOUR ----------
+# ---------- TUTORIAL STEPS ----------
 TUTORIAL_STEPS = [
-    {"target": "title", "text": "👉 Tap this box to reveal your current title! Titles stay locked until your streak reaches that many days."},
-    {"target": "mood", "text": "👉 This little character shows how today is going — sad if you haven't checked in yet, happy once you have!"},
-    {"target": "streak", "text": "👉 These are your Current Streak and your all-time Highest Streak. Don't let the first one hit zero!"},
-    {"target": "progress", "text": "👉 Here's your total questions solved and any pending backlog. Keep backlog under 40 or the streak resets!"},
-    {"target": "checkin", "text": "👉 Upload today's photo here, tell the app how many questions you solved, then hit Submit."},
-    {"target": "history", "text": "👉 Every single day gets logged here so you can look back on your whole journey."},
+    {"target": "title", "text": "👉 Tap this box to reveal your current title!"},
+    {"target": "mood", "text": "👉 This wizard shows how today is going — dim if inactive, glowing if checked in!"},
+    {"target": "streak", "text": "👉 Track your Current and Highest streaks here."},
+    {"target": "progress", "text": f"👉 View solved totals and your active backlog. Keep it under {PENDING_LIMIT}!"},
+    {"target": "checkin", "text": "👉 Upload today's proof and submit your solved count."},
+    {"target": "history", "text": "👉 Review past logs of your entire journey."},
 ]
 
 
@@ -570,7 +561,7 @@ def section(name, render_fn):
                 st.rerun()
 
 
-# ---------- SESSION STATE ----------
+# ---------- SESSION STATE & APP ENTRY ----------
 if "user" not in st.session_state:
     st.session_state.user = None
 if "uploader_counter" not in st.session_state:
@@ -586,10 +577,9 @@ users = load_users()
 current_dt, is_online = fetch_online_datetime()
 today = current_dt.date()
 
-# ---------- HEADER (always visible) ----------
 st.markdown(f'<div class="big-title">{get_daily_heading(today)}</div>', unsafe_allow_html=True)
 st.markdown(
-    '<div class="subtitle">Solve 50 questions a day. Upload proof. Keep the streak alive.</div>',
+    f'<div class="subtitle">Solve {DAILY_TARGET} questions a day. Upload proof. Keep the streak alive.</div>',
     unsafe_allow_html=True,
 )
 sync_note = "synced online" if is_online else "device time — offline"
@@ -599,7 +589,6 @@ st.markdown(
 )
 st.markdown(f'<div class="quote-card">💬 {get_daily_quote(today)}</div>', unsafe_allow_html=True)
 
-# ---------- SHIVAM'S NOTE (interactive reveal) ----------
 if st.button("💌 A note for you, Aditi", use_container_width=True):
     st.session_state.note_opened = not st.session_state.note_opened
     if st.session_state.note_opened:
@@ -608,11 +597,11 @@ if st.button("💌 A note for you, Aditi", use_container_width=True):
 if st.session_state.note_opened:
     st.markdown(f'<div class="note-card">{SHIVAMS_NOTE}</div>', unsafe_allow_html=True)
 
-# ---------- LOGIN / SIGNUP ----------
+# ---------- LOGIN / SIGNUP UI ----------
 if st.session_state.user is None:
     st.markdown('<div class="login-card">', unsafe_allow_html=True)
     st.subheader("👋 Welcome — log in or create your account")
-    st.caption("New here? Just enter a username and password and hit the button — your account will be created automatically.")
+    st.caption("New here? Enter a username and password to automatically create your account.")
 
     username = st.text_input("Username").strip()
     password = st.text_input("Password", type="password")
@@ -632,11 +621,9 @@ if st.session_state.user is None:
             st.session_state.user = username
             st.success(f"Account created! Welcome, {username} 🎉")
             st.rerun()
-
     st.markdown("</div>", unsafe_allow_html=True)
-    st.caption("Note: this is a lightweight app for friends/family use — passwords are stored in plain text, so don't reuse a sensitive password here.")
 
-# ---------- LOGGED-IN DASHBOARD ----------
+# ---------- DASHBOARD ----------
 else:
     username = st.session_state.user
     users = check_for_broken_streak(users, username, today)
@@ -644,7 +631,7 @@ else:
     today_str = today.isoformat()
     todays_entry = record.get("history", {}).get(today_str)
     uploaded_today = bool(todays_entry and todays_entry["uploaded"])
-    total_solved, pending = compute_progress(record.get("history", {}))
+    total_solved, pending = compute_progress(record.get("history", {}), record.get("pending_reset_date"))
 
     top_col1, top_col2, top_col3 = st.columns([2.2, 1.3, 1])
     with top_col1:
@@ -660,7 +647,7 @@ else:
             st.session_state.user = None
             st.rerun()
 
-    # ---- Title (locked/unlocked, click to reveal) ----
+    # Title section
     def render_title():
         with st.expander("🏆 Tap to reveal your title", expanded=False):
             title = current_title(record["current_streak"])
@@ -675,7 +662,7 @@ else:
             if nxt:
                 nday, _ = nxt
                 days_left = nday - record["current_streak"]
-                st.caption(f"🔒 Next title unlocks in {days_left} day(s) — keep the streak alive to find out what it is!")
+                st.caption(f"🔒 Next title unlocks in {days_left} day(s)")
 
             st.write("—" * 3)
             st.caption("Full title roadmap:")
@@ -692,12 +679,12 @@ else:
 
     section("title", render_title)
 
-    # ---- Mood card ----
+    # Mood card section
     def render_mood():
         st.markdown(mood_card(uploaded_today), unsafe_allow_html=True)
     section("mood", render_mood)
 
-    # ---- Streak numbers ----
+    # Streak cards section
     def render_streak():
         st.markdown(f'<div class="flame-row">{flame_display(record["current_streak"])}</div>', unsafe_allow_html=True)
         st.markdown(
@@ -715,22 +702,19 @@ else:
             """,
             unsafe_allow_html=True,
         )
-        if record["last_upload_date"]:
-            st.caption(f"Last check-in: {record['last_upload_date']}")
-        else:
-            st.caption("No check-ins yet. Upload your first photo to start your streak!")
     section("streak", render_streak)
 
-    # ---- Progress: total solved + pending backlog ----
+    # Progress stats section
     def render_progress():
+        pending_class = "pending" if pending > 0 else ""
         st.markdown(
             f"""
-            <div class="progress-box">
-                <div class="streak-card high">
+            <div class="streak-box">
+                <div class="streak-card">
                     <div class="streak-number">{total_solved}</div>
-                    <div class="streak-label">Total Questions Solved</div>
+                    <div class="streak-label">Total Solved</div>
                 </div>
-                <div class="streak-card pending">
+                <div class="streak-card {pending_class}">
                     <div class="streak-number">{pending}</div>
                     <div class="streak-label">Pending Backlog</div>
                 </div>
@@ -738,118 +722,48 @@ else:
             """,
             unsafe_allow_html=True,
         )
-        if pending > 0:
-            st.markdown(
-                f'<div class="pending-warning">⚠️ You have <b>{pending}</b> pending question(s) built up. '
-                f'Try to clear this by solving extra another day — if backlog goes over {PENDING_LIMIT}, the streak resets!</div>',
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown('<div class="pending-ok">✅ No backlog — you\'re fully caught up!</div>', unsafe_allow_html=True)
     section("progress", render_progress)
 
-    st.divider()
-
-    # ---- Check-in flow ----
-    def render_checkin_widgets(key_suffix=""):
-        uploader_key = f"uploader_{st.session_state.uploader_counter}{key_suffix}"
-        uploaded_file = st.file_uploader(
-            "Upload today's photo",
-            type=["png", "jpg", "jpeg", "webp", "heic"],
-            key=uploader_key,
-            label_visibility="collapsed",
-        )
-
-        if uploaded_file is not None:
-            col_prev, col_remove = st.columns([3, 1])
-            with col_prev:
-                st.image(uploaded_file, caption="Preview", use_container_width=True)
-            with col_remove:
-                if st.button("❌ Remove", key=f"remove_{key_suffix}"):
-                    st.session_state.uploader_counter += 1
-                    st.rerun()
-
-            st.write("**How many questions did you complete today?**")
-            questions_completed = st.number_input(
-                "Questions completed",
-                min_value=0,
-                max_value=500,
-                value=50,
-                step=1,
-                key=f"num_{key_suffix}",
-                label_visibility="collapsed",
-            )
-
-            if questions_completed < DAILY_TARGET:
-                shortfall = DAILY_TARGET - questions_completed
-                st.markdown(
-                    f'<div class="pending-warning">You\'re {shortfall} question(s) short of today\'s target of {DAILY_TARGET}. '
-                    f'This will still count toward your streak, but try to clear the extra {shortfall} soon — '
-                    f'total backlog can\'t go over {PENDING_LIMIT} or the streak resets!</div>',
-                    unsafe_allow_html=True,
-                )
-            elif questions_completed > DAILY_TARGET:
-                st.markdown(
-                    f'<div class="pending-ok">Nice, {questions_completed - DAILY_TARGET} extra question(s) today — that will pay down your backlog!</div>',
-                    unsafe_allow_html=True,
-                )
-
-            if st.button("✅ Submit Check-in", use_container_width=True, key=f"submit_{key_suffix}"):
-                ext = os.path.splitext(uploaded_file.name)[1] or ".jpg"
-                already_checked_in = uploaded_today
-                new_users = register_upload(
-                    users, username, int(questions_completed),
-                    uploaded_file.getvalue(), ext, today,
-                )
-                new_record = new_users[username]
-
-                if already_checked_in:
-                    st.info("Today's submission has been updated.")
-                else:
-                    st.success(f"🎉 Nice work! Streak updated to {new_record['current_streak']} day(s)!")
-                    msg = milestone_message(new_record["current_streak"])
-                    if msg:
-                        st.markdown(f'<div class="milestone-banner">{msg}</div>', unsafe_allow_html=True)
-                    st.balloons()
-
-                st.session_state.uploader_counter += 1
-                st.rerun()
-
+    # Daily submission checklist section
     def render_checkin():
+        st.subheader("📝 Today's Check-in")
         if uploaded_today:
-            st.success(f"✅ Already checked in today — {todays_entry['questions']} question(s) logged.")
-            saved_img = find_saved_image(username, today_str)
-            if saved_img:
-                st.image(saved_img, caption="Today's submission", use_container_width=True)
-            with st.expander("Made a mistake? Update today's submission"):
-                render_checkin_widgets(key_suffix="update")
+            st.success("✅ You have already checked in for today! Great job.")
+            public_url = find_saved_image(username, today_str)
+            if public_url:
+                st.image(public_url, caption=f"Proof submitted for {today_str}", use_container_width=True)
         else:
-            st.subheader("📸 Check in for today")
-            st.write("Upload a photo of your solved questions to register today's streak.")
-            render_checkin_widgets(key_suffix="fresh")
+            questions_input = st.number_input("Questions solved today", min_value=0, max_value=200, value=DAILY_TARGET, step=1)
+            uploaded_file = st.file_uploader("Upload proof (photo of notebook/workspace)", type=["jpg", "jpeg", "png"], key=f"uploader_{st.session_state.uploader_counter}")
 
+            if st.button("Submit Today's Work", use_container_width=True):
+                if uploaded_file is None:
+                    st.error("Please upload a photo before submitting.")
+                else:
+                    file_bytes = uploaded_file.getvalue()
+                    file_ext = os.path.splitext(uploaded_file.name)[1]
+                    users = register_upload(users, username, int(questions_input), file_bytes, file_ext, today)
+                    st.session_state.uploader_counter += 1
+                    st.balloons()
+                    st.success("Check-in recorded successfully!")
+                    st.rerun()
     section("checkin", render_checkin)
 
-    # ---- History log ----
+    # History logs section
     def render_history():
-        st.divider()
-        st.subheader("📖 History")
-        history = record.get("history", {})
-        if history:
-            rows = []
-            for d in sorted(history.keys(), reverse=True):
-                entry = history[d]
-                rows.append({
-                    "Date": d,
-                    "Uploaded": "✅" if entry["uploaded"] else "❌",
-                    "Questions Completed": entry.get("questions", 0),
-                })
-            df = pd.DataFrame(rows)
-            with st.expander(f"View full history ({len(rows)} day(s) logged)", expanded=False):
-                st.dataframe(df, use_container_width=True, hide_index=True)
-        else:
-            st.caption("No history yet — your daily log will build up here.")
+        with st.expander("📅 View Full History Log"):
+            history_data = record.get("history", {})
+            if not history_data:
+                st.info("No logs available yet.")
+            else:
+                hist_rows = []
+                for d_str in sorted(history_data.keys(), reverse=True):
+                    info = history_data[d_str]
+                    hist_rows.append({
+                        "Date": d_str,
+                        "Status": "✅ Completed" if info.get("uploaded") else "❌ Missed",
+                        "Questions": info.get("questions", 0),
+                    })
+                df_hist = pd.DataFrame(hist_rows)
+                st.dataframe(df_hist, use_container_width=True, hide_index=True)
     section("history", render_history)
-
-    st.divider()
-    st.caption("Missing a full calendar day resets your current streak to 0. Your highest streak is always saved.")
