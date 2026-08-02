@@ -220,46 +220,46 @@ def milestone_message(streak):
 # each entry below with your own hosted image link. The before/after
 # messages are the exact text you supplied.
 CHARACTERS = [
-    {"name": "Harry Potter", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=harry-potter&backgroundColor=3a1c71,6a3de8,241049", "before": "Expecto Patronum! Aditi, grab your wand and conquer those 40 questions before the Dementors of backlog catch up!", "after": "Brilliant work, Aditi! You faced the 40 questions head-on like a true Gryffindor!"},
-    {"name": "Hermione Granger", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=hermione-granger&backgroundColor=3a1c71,6a3de8,241049", "before": "It's levi-o-sa, not levio-sa! Focus on your 40 math problems with absolute precision today, Aditi.", "after": "Five points to Gryffindor! Your 40 questions are solved flawlessly. Brilliant logic as always!"},
-    {"name": "Ron Weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=ron-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Blimey, Aditi! 40 questions sound rough, but if anyone can beat this, it's definitely you!", "after": "Bloody brilliant, Aditi! You actually crushed all 40! Let's celebrate with some pumpkin juice!"},
-    {"name": "Albus Dumbledore", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=albus-dumbledore&backgroundColor=3a1c71,6a3de8,241049", "before": "It is our choices, Aditi, that show what we truly are. It is time to choose to finish your 40 questions.", "after": "Magnificent work on your 40 today. Words are, in my not-so-humble opinion, our most inexhaustible source of magic."},
-    {"name": "Severus Snape", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=severus-snape&backgroundColor=3a1c71,6a3de8,241049", "before": "Subtlety of mind, Aditi... Do not slack off. I expect all 40 questions completed and properly analyzed.", "after": "Acceptable... Truly, exceptional discipline shown today. Your 40 questions are accounted for."},
-    {"name": "Sirius Black", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=sirius-black&backgroundColor=3a1c71,6a3de8,241049", "before": "The ones that love us never really leave us, Aditi. Push through your 40 questions with courage!", "after": "That’s my girl! You're breaking through barriers just like breaking out of Azkaban. Keep soaring!"},
-    {"name": "Rubeus Hagrid", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=rubeus-hagrid&backgroundColor=3a1c71,6a3de8,241049", "before": "Yer a math wizard, Aditi! Don't let those 40 questions scare yeh, yer stronger than a dragon!", "after": "Cracking good job, Aditi! Yer ready to face any magical beast that comes yer way!"},
-    {"name": "Luna Lovegood", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=luna-lovegood&backgroundColor=3a1c71,6a3de8,241049", "before": "Being different isn't a bad thing, Aditi. Focus on your 40 unique math questions in your own creative way.", "after": "I think the Nargles left your desk because your 40 questions are magically complete. How wonderful!"},
-    {"name": "Draco Malfoy", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=draco-malfoy&backgroundColor=3a1c71,6a3de8,241049", "before": "My father hears about everything, Aditi—including whether you finish your 40 questions today or not.", "after": "Hmph... I suppose even you can pull off 40 questions when properly motivated."},
-    {"name": "Minerva McGonagall", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=minerva-mcgonagall&backgroundColor=3a1c71,6a3de8,241049", "before": "Transfiguration requires intense concentration, Aditi. Focus on your 40 questions without any distractions.", "after": "Impeccable execution! You have transformed raw effort into absolute mastery over your 40 questions."},
-    {"name": "Neville Longbottom", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=neville-longbottom&backgroundColor=3a1c71,6a3de8,241049", "before": "It takes a great deal of bravery to stand up to 40 hard math questions! You've got this.", "after": "Look what we can achieve when we don't give up! Your 40 questions look incredible, Aditi!"},
-    {"name": "Bellatrix Lestrange", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=bellatrix-lestrange&backgroundColor=3a1c71,6a3de8,241049", "before": "Let's see how much pain those 40 math equations can give you before you conquer them, Aditi!", "after": "A dark power rises! You tortured those 40 questions until they gave you the right answers!"},
-    {"name": "Remus Lupin", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=remus-lupin&backgroundColor=3a1c71,6a3de8,241049", "before": "Eat a bit of chocolate and tackle your 40 questions, Aditi. You have the strength for this.", "after": "Wonderful control, Aditi. You faced your inner doubts and mastered all 40 questions brilliantly."},
-    {"name": "Cedric Diggory", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=cedric-diggory&backgroundColor=3a1c71,6a3de8,241049", "before": "Remember, champions stick together. Take it one step at a time through your 40 questions today.", "after": "You touched the cup of productivity today, Aditi! Exceptional work on your 40 questions."},
-    {"name": "Ginny Weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=ginny-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Show them what you're made of, Aditi! Blast through those 40 questions like a Bat-Bogey Hex!", "after": "Absolute winner energy! You cleared all 40 questions without breaking a sweat."},
-    {"name": "Fred Weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=fred-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Weasley's Wizard Wheezes recommends knocking out those 40 questions with a bang, Aditi!", "after": "Merlin's pants, you actually did all 40! Time to open a Skiving Snackbox to celebrate!"},
-    {"name": "George Weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=george-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Don't let the math grind you down! Prank those 40 questions by solving them perfectly!", "after": "Mischief managed! 40 questions down, and you made it look entirely too easy!"},
-    {"name": "Cho Chang", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=cho-chang&backgroundColor=3a1c71,6a3de8,241049", "before": "Keep your hand steady on your quill, Aditi. 40 questions require deep focus and calm breathing.", "after": "Your study session was flawless! All 40 questions completed with absolute grace."},
-    {"name": "Nymphadora Tonks", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=nymphadora-tonks&backgroundColor=3a1c71,6a3de8,241049", "before": "Wotcher, Aditi! Don't trip over your robes—just jump straight into your 40 daily questions!", "after": "Brilliant! You shifted shapes and conquered those 40 questions like a true Auror in training!"},
-    {"name": "Viktor Krum", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=viktor-krum&backgroundColor=3a1c71,6a3de8,241049", "before": "I vatch you train, Aditi. Focus your eyes on the math snitch and catch those 40 questions.", "after": "Venn-tastic! You caught the snitch of victory. All 40 questions successfully captured."},
-    {"name": "Fleur Delacour", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=fleur-delacour&backgroundColor=3a1c71,6a3de8,241049", "before": "Eet is magnifique to see you study hard, Aditi. Now show those 40 questions your true power.", "after": "Ooh, c'est magnifique! Your 40 questions are completed with pure magical perfection."},
-    {"name": "Arthur Weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=arthur-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Fascinating! I wonder how Muggles do math, but your 40 questions are much more urgent!", "after": "Magnificent wizarding engineering, Aditi! You've successfully wired your brain for 40 questions today."},
-    {"name": "Molly Weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=molly-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Sit down right away and finish your 40 questions like a good witch!", "after": "Oh, my sweet girl, you finished all 40! I am so incredibly proud of you!"},
-    {"name": "Lucius Malfoy", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=lucius-malfoy&backgroundColor=3a1c71,6a3de8,241049", "before": "Quality work is expected from those who possess true ambition, Aditi. Show me your 40 questions.", "after": "Impressive performance. You command your mathematical spells with cold, calculated precision."},
-    {"name": "Kingsley Shacklebolt", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=kingsley-shacklebolt&backgroundColor=3a1c71,6a3de8,241049", "before": "Stay vigilant, Aditi. The path to greatness requires unyielding focus on your 40 daily questions.", "after": "Ministry standards have been met and exceeded. Outstanding job completing your 40 questions."},
-    {"name": "Professor Flitwick", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=professor-flitwick&backgroundColor=3a1c71,6a3de8,241049", "before": "Swish and flick, Aditi! Bring maximum energy and intellect to your 40 Charm-level math problems.", "after": "Wingardium Leviosa! Your knowledge and confidence are soaring high after finishing those 40 questions!"},
-    {"name": "Mad-Eye Moody", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=mad-eye-moody&backgroundColor=3a1c71,6a3de8,241049", "before": "CONSTANT VIGILANCE, Aditi! Don't let laziness sneak up on your 40 questions today!", "after": "That's how it's done! Secured the perimeter, locked down the answers, 40 questions defeated!"},
-    {"name": "Sybill Trelawney", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=sybill-trelawney&backgroundColor=3a1c71,6a3de8,241049", "before": "My inner eye sees great mathematical triumph in your future, Aditi, provided you solve your 40 questions.", "after": "The tea leaves never lie! Your 40 questions are done, foretelling a glorious future!"},
-    {"name": "Professor Sprout", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=professor-sprout&backgroundColor=3a1c71,6a3de8,241049", "before": "Put on your earmuffs, Aditi, and dig deep into the greenhouse of logic for your 40 questions.", "after": "Look at those brilliant roots and shoots! Your 40 questions have blossomed into success."},
-    {"name": "Horace Slughorn", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=horace-slughorn&backgroundColor=3a1c71,6a3de8,241049", "before": "Ah, brilliant minds collect top grades! Let's see you tackle those 40 questions.", "after": "A top-tier performance, Aditi! You truly belong in the elite club of problem solvers."},
-    {"name": "Dobby", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=dobby&backgroundColor=3a1c71,6a3de8,241049", "before": "Dobby is happy to serve! Aditi is a great witch who will surely finish her 40 questions today!", "after": "Dobby is a free elf, and Aditi is free from her 40-question backlog! Hip hip hooray!"},
-    {"name": "Garrick Ollivander", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=garrick-ollivander&backgroundColor=3a1c71,6a3de8,241049", "before": "The wand chooses the wizard, Aditi, but the wizard must choose to solve her 40 questions.", "after": "I remember every equation you've ever solved... and these 40 were truly exceptional."},
-    {"name": "Dean Thomas", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=dean-thomas&backgroundColor=3a1c71,6a3de8,241049", "before": "Sketch out your equations clearly like a masterpiece canvas, Aditi. 40 questions await!", "after": "Absolute masterpiece! Your 40 questions are fully solved and beautifully presented."},
-    {"name": "Seamus Finnigan", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=seamus-finnigan&backgroundColor=3a1c71,6a3de8,241049", "before": "Try not to accidentally blow up your study desk while doing your 40 questions!", "after": "Brilliant! No smoke or explosions, just 40 cleanly solved questions!"},
-    {"name": "Parvati Patil", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=parvati-patil&backgroundColor=3a1c71,6a3de8,241049", "before": "Trust your intuition and your textbooks, Aditi. You can breeze right through those 40 questions.", "after": "You did it! Your study session was magical and your 40 questions are completely finished."},
-    {"name": "Padma Patil", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=padma-patil&backgroundColor=3a1c71,6a3de8,241049", "before": "Ravenclaw wisdom dictates methodical, structured progress through your 40 daily questions, Aditi.", "after": "Flawless logic and immaculate calculation! All 40 questions solved to absolute perfection."},
-    {"name": "Oliver Wood", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=oliver-wood&backgroundColor=3a1c71,6a3de8,241049", "before": "Studying is about discipline! Let's win the 40-question match today!", "after": "That's how you catch the winning goal! 40 questions locked in and secured!"},
-    {"name": "Lee Jordan", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=lee-jordan&backgroundColor=3a1c71,6a3de8,241049", "before": "And they're off! Aditi stepping up to the plate to face the almighty 40-question challenge!", "after": "What a stunning victory! Aditi scores all 40 points like an absolute champion!"},
-    {"name": "Katie Bell", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=katie-bell&backgroundColor=3a1c71,6a3de8,241049", "before": "Stay strong and keep your momentum going, Aditi. 40 questions are a breeze for you!", "after": "You nailed every single one of them! Fantastic effort on your 40 questions today."},
-    {"name": "Angelina Johnson", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=angelina-johnson&backgroundColor=3a1c71,6a3de8,241049", "before": "Total concentration, Aditi. No distractions until those 40 questions are completely done.", "after": "Hard work pays off! Your 40 questions are done and your streak keeps burning bright."},
+    {"name": "Harry Potter", "slug": "harry-potter", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=harry-potter&backgroundColor=3a1c71,6a3de8,241049", "before": "Expecto Patronum! Aditi, grab your wand and conquer those 40 questions before the Dementors of backlog catch up!", "after": "Brilliant work, Aditi! You faced the 40 questions head-on like a true Gryffindor!"},
+    {"name": "Hermione Granger", "slug": "hermione-granger", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=hermione-granger&backgroundColor=3a1c71,6a3de8,241049", "before": "It's levi-o-sa, not levio-sa! Focus on your 40 math problems with absolute precision today, Aditi.", "after": "Five points to Gryffindor! Your 40 questions are solved flawlessly. Brilliant logic as always!"},
+    {"name": "Ron Weasley", "slug": "ron-weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=ron-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Blimey, Aditi! 40 questions sound rough, but if anyone can beat this, it's definitely you!", "after": "Bloody brilliant, Aditi! You actually crushed all 40! Let's celebrate with some pumpkin juice!"},
+    {"name": "Albus Dumbledore", "slug": "albus-dumbledore", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=albus-dumbledore&backgroundColor=3a1c71,6a3de8,241049", "before": "It is our choices, Aditi, that show what we truly are. It is time to choose to finish your 40 questions.", "after": "Magnificent work on your 40 today. Words are, in my not-so-humble opinion, our most inexhaustible source of magic."},
+    {"name": "Severus Snape", "slug": "severus-snape", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=severus-snape&backgroundColor=3a1c71,6a3de8,241049", "before": "Subtlety of mind, Aditi... Do not slack off. I expect all 40 questions completed and properly analyzed.", "after": "Acceptable... Truly, exceptional discipline shown today. Your 40 questions are accounted for."},
+    {"name": "Sirius Black", "slug": "sirius-black", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=sirius-black&backgroundColor=3a1c71,6a3de8,241049", "before": "The ones that love us never really leave us, Aditi. Push through your 40 questions with courage!", "after": "That’s my girl! You're breaking through barriers just like breaking out of Azkaban. Keep soaring!"},
+    {"name": "Rubeus Hagrid", "slug": "rubeus-hagrid", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=rubeus-hagrid&backgroundColor=3a1c71,6a3de8,241049", "before": "Yer a math wizard, Aditi! Don't let those 40 questions scare yeh, yer stronger than a dragon!", "after": "Cracking good job, Aditi! Yer ready to face any magical beast that comes yer way!"},
+    {"name": "Luna Lovegood", "slug": "luna-lovegood", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=luna-lovegood&backgroundColor=3a1c71,6a3de8,241049", "before": "Being different isn't a bad thing, Aditi. Focus on your 40 unique math questions in your own creative way.", "after": "I think the Nargles left your desk because your 40 questions are magically complete. How wonderful!"},
+    {"name": "Draco Malfoy", "slug": "draco-malfoy", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=draco-malfoy&backgroundColor=3a1c71,6a3de8,241049", "before": "My father hears about everything, Aditi—including whether you finish your 40 questions today or not.", "after": "Hmph... I suppose even you can pull off 40 questions when properly motivated."},
+    {"name": "Minerva McGonagall", "slug": "minerva-mcgonagall", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=minerva-mcgonagall&backgroundColor=3a1c71,6a3de8,241049", "before": "Transfiguration requires intense concentration, Aditi. Focus on your 40 questions without any distractions.", "after": "Impeccable execution! You have transformed raw effort into absolute mastery over your 40 questions."},
+    {"name": "Neville Longbottom", "slug": "neville-longbottom", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=neville-longbottom&backgroundColor=3a1c71,6a3de8,241049", "before": "It takes a great deal of bravery to stand up to 40 hard math questions! You've got this.", "after": "Look what we can achieve when we don't give up! Your 40 questions look incredible, Aditi!"},
+    {"name": "Bellatrix Lestrange", "slug": "bellatrix-lestrange", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=bellatrix-lestrange&backgroundColor=3a1c71,6a3de8,241049", "before": "Let's see how much pain those 40 math equations can give you before you conquer them, Aditi!", "after": "A dark power rises! You tortured those 40 questions until they gave you the right answers!"},
+    {"name": "Remus Lupin", "slug": "remus-lupin", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=remus-lupin&backgroundColor=3a1c71,6a3de8,241049", "before": "Eat a bit of chocolate and tackle your 40 questions, Aditi. You have the strength for this.", "after": "Wonderful control, Aditi. You faced your inner doubts and mastered all 40 questions brilliantly."},
+    {"name": "Cedric Diggory", "slug": "cedric-diggory", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=cedric-diggory&backgroundColor=3a1c71,6a3de8,241049", "before": "Remember, champions stick together. Take it one step at a time through your 40 questions today.", "after": "You touched the cup of productivity today, Aditi! Exceptional work on your 40 questions."},
+    {"name": "Ginny Weasley", "slug": "ginny-weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=ginny-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Show them what you're made of, Aditi! Blast through those 40 questions like a Bat-Bogey Hex!", "after": "Absolute winner energy! You cleared all 40 questions without breaking a sweat."},
+    {"name": "Fred Weasley", "slug": "fred-weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=fred-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Weasley's Wizard Wheezes recommends knocking out those 40 questions with a bang, Aditi!", "after": "Merlin's pants, you actually did all 40! Time to open a Skiving Snackbox to celebrate!"},
+    {"name": "George Weasley", "slug": "george-weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=george-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Don't let the math grind you down! Prank those 40 questions by solving them perfectly!", "after": "Mischief managed! 40 questions down, and you made it look entirely too easy!"},
+    {"name": "Cho Chang", "slug": "cho-chang", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=cho-chang&backgroundColor=3a1c71,6a3de8,241049", "before": "Keep your hand steady on your quill, Aditi. 40 questions require deep focus and calm breathing.", "after": "Your study session was flawless! All 40 questions completed with absolute grace."},
+    {"name": "Nymphadora Tonks", "slug": "nymphadora-tonks", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=nymphadora-tonks&backgroundColor=3a1c71,6a3de8,241049", "before": "Wotcher, Aditi! Don't trip over your robes—just jump straight into your 40 daily questions!", "after": "Brilliant! You shifted shapes and conquered those 40 questions like a true Auror in training!"},
+    {"name": "Viktor Krum", "slug": "viktor-krum", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=viktor-krum&backgroundColor=3a1c71,6a3de8,241049", "before": "I vatch you train, Aditi. Focus your eyes on the math snitch and catch those 40 questions.", "after": "Venn-tastic! You caught the snitch of victory. All 40 questions successfully captured."},
+    {"name": "Fleur Delacour", "slug": "fleur-delacour", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=fleur-delacour&backgroundColor=3a1c71,6a3de8,241049", "before": "Eet is magnifique to see you study hard, Aditi. Now show those 40 questions your true power.", "after": "Ooh, c'est magnifique! Your 40 questions are completed with pure magical perfection."},
+    {"name": "Arthur Weasley", "slug": "arthur-weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=arthur-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Fascinating! I wonder how Muggles do math, but your 40 questions are much more urgent!", "after": "Magnificent wizarding engineering, Aditi! You've successfully wired your brain for 40 questions today."},
+    {"name": "Molly Weasley", "slug": "molly-weasley", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=molly-weasley&backgroundColor=3a1c71,6a3de8,241049", "before": "Sit down right away and finish your 40 questions like a good witch!", "after": "Oh, my sweet girl, you finished all 40! I am so incredibly proud of you!"},
+    {"name": "Lucius Malfoy", "slug": "lucius-malfoy", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=lucius-malfoy&backgroundColor=3a1c71,6a3de8,241049", "before": "Quality work is expected from those who possess true ambition, Aditi. Show me your 40 questions.", "after": "Impressive performance. You command your mathematical spells with cold, calculated precision."},
+    {"name": "Kingsley Shacklebolt", "slug": "kingsley-shacklebolt", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=kingsley-shacklebolt&backgroundColor=3a1c71,6a3de8,241049", "before": "Stay vigilant, Aditi. The path to greatness requires unyielding focus on your 40 daily questions.", "after": "Ministry standards have been met and exceeded. Outstanding job completing your 40 questions."},
+    {"name": "Professor Flitwick", "slug": "professor-flitwick", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=professor-flitwick&backgroundColor=3a1c71,6a3de8,241049", "before": "Swish and flick, Aditi! Bring maximum energy and intellect to your 40 Charm-level math problems.", "after": "Wingardium Leviosa! Your knowledge and confidence are soaring high after finishing those 40 questions!"},
+    {"name": "Mad-Eye Moody", "slug": "mad-eye-moody", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=mad-eye-moody&backgroundColor=3a1c71,6a3de8,241049", "before": "CONSTANT VIGILANCE, Aditi! Don't let laziness sneak up on your 40 questions today!", "after": "That's how it's done! Secured the perimeter, locked down the answers, 40 questions defeated!"},
+    {"name": "Sybill Trelawney", "slug": "sybill-trelawney", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=sybill-trelawney&backgroundColor=3a1c71,6a3de8,241049", "before": "My inner eye sees great mathematical triumph in your future, Aditi, provided you solve your 40 questions.", "after": "The tea leaves never lie! Your 40 questions are done, foretelling a glorious future!"},
+    {"name": "Professor Sprout", "slug": "professor-sprout", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=professor-sprout&backgroundColor=3a1c71,6a3de8,241049", "before": "Put on your earmuffs, Aditi, and dig deep into the greenhouse of logic for your 40 questions.", "after": "Look at those brilliant roots and shoots! Your 40 questions have blossomed into success."},
+    {"name": "Horace Slughorn", "slug": "horace-slughorn", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=horace-slughorn&backgroundColor=3a1c71,6a3de8,241049", "before": "Ah, brilliant minds collect top grades! Let's see you tackle those 40 questions.", "after": "A top-tier performance, Aditi! You truly belong in the elite club of problem solvers."},
+    {"name": "Dobby", "slug": "dobby", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=dobby&backgroundColor=3a1c71,6a3de8,241049", "before": "Dobby is happy to serve! Aditi is a great witch who will surely finish her 40 questions today!", "after": "Dobby is a free elf, and Aditi is free from her 40-question backlog! Hip hip hooray!"},
+    {"name": "Garrick Ollivander", "slug": "garrick-ollivander", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=garrick-ollivander&backgroundColor=3a1c71,6a3de8,241049", "before": "The wand chooses the wizard, Aditi, but the wizard must choose to solve her 40 questions.", "after": "I remember every equation you've ever solved... and these 40 were truly exceptional."},
+    {"name": "Dean Thomas", "slug": "dean-thomas", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=dean-thomas&backgroundColor=3a1c71,6a3de8,241049", "before": "Sketch out your equations clearly like a masterpiece canvas, Aditi. 40 questions await!", "after": "Absolute masterpiece! Your 40 questions are fully solved and beautifully presented."},
+    {"name": "Seamus Finnigan", "slug": "seamus-finnigan", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=seamus-finnigan&backgroundColor=3a1c71,6a3de8,241049", "before": "Try not to accidentally blow up your study desk while doing your 40 questions!", "after": "Brilliant! No smoke or explosions, just 40 cleanly solved questions!"},
+    {"name": "Parvati Patil", "slug": "parvati-patil", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=parvati-patil&backgroundColor=3a1c71,6a3de8,241049", "before": "Trust your intuition and your textbooks, Aditi. You can breeze right through those 40 questions.", "after": "You did it! Your study session was magical and your 40 questions are completely finished."},
+    {"name": "Padma Patil", "slug": "padma-patil", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=padma-patil&backgroundColor=3a1c71,6a3de8,241049", "before": "Ravenclaw wisdom dictates methodical, structured progress through your 40 daily questions, Aditi.", "after": "Flawless logic and immaculate calculation! All 40 questions solved to absolute perfection."},
+    {"name": "Oliver Wood", "slug": "oliver-wood", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=oliver-wood&backgroundColor=3a1c71,6a3de8,241049", "before": "Studying is about discipline! Let's win the 40-question match today!", "after": "That's how you catch the winning goal! 40 questions locked in and secured!"},
+    {"name": "Lee Jordan", "slug": "lee-jordan", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=lee-jordan&backgroundColor=3a1c71,6a3de8,241049", "before": "And they're off! Aditi stepping up to the plate to face the almighty 40-question challenge!", "after": "What a stunning victory! Aditi scores all 40 points like an absolute champion!"},
+    {"name": "Katie Bell", "slug": "katie-bell", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=katie-bell&backgroundColor=3a1c71,6a3de8,241049", "before": "Stay strong and keep your momentum going, Aditi. 40 questions are a breeze for you!", "after": "You nailed every single one of them! Fantastic effort on your 40 questions today."},
+    {"name": "Angelina Johnson", "slug": "angelina-johnson", "image": "https://api.dicebear.com/7.x/adventurer/svg?seed=angelina-johnson&backgroundColor=3a1c71,6a3de8,241049", "before": "Total concentration, Aditi. No distractions until those 40 questions are completely done.", "after": "Hard work pays off! Your 40 questions are done and your streak keeps burning bright."},
 ]
 
 
@@ -268,16 +268,47 @@ def get_daily_character(today):
     return CHARACTERS[today.toordinal() % len(CHARACTERS)]
 
 
+# ---------- OPTIONAL: YOUR OWN RIGHTS-CLEARED CHARACTER PHOTOS ----------
+# I can't source or embed real Harry Potter movie stills myself (Warner Bros.
+# / J.K. Rowling copyright). But if YOU have photos you're licensed to use,
+# upload them to a Supabase Storage bucket named "character-photos", with
+# each filename matching a character's slug below (e.g. "harry-potter.jpg",
+# "hermione-granger.png"). The app will automatically use your real photo
+# instead of the generated placeholder avatar whenever one is found.
+STORAGE_BUCKET_CHARACTER_PHOTOS = "character-photos"
+
+
+@st.cache_data(ttl=300)
+def list_character_photo_files():
+    try:
+        return supabase.storage.from_(STORAGE_BUCKET_CHARACTER_PHOTOS).list()
+    except Exception:
+        return []
+
+
+def get_character_image_url(character):
+    """Returns your uploaded rights-cleared photo for this character if one
+    exists in Supabase Storage, otherwise falls back to the generated
+    placeholder avatar."""
+    files = list_character_photo_files()
+    for f in files:
+        base = f["name"].rsplit(".", 1)[0].lower()
+        if base == character["slug"]:
+            return supabase.storage.from_(STORAGE_BUCKET_CHARACTER_PHOTOS).get_public_url(f["name"])
+    return character["image"]
+
+
 def character_card(character, uploaded_today):
     msg = character["after"] if uploaded_today else character["before"]
     label = "✅ Today's check-in" if uploaded_today else "⏳ Awaiting today's check-in"
+    image_url = get_character_image_url(character)
     return f"""
     <div style="background: rgba(20,10,45,0.5); border: 1px solid rgba(212,175,55,0.4);
                 border-radius: 18px; padding: 1rem 1.1rem; margin-bottom: 0.6rem;
                 box-shadow: 0 4px 14px rgba(0,0,0,0.35); text-align:center;">
-        <img class="hp-character-img" src="{character['image']}"
+        <img class="hp-character-img" src="{image_url}"
              style="width:110px;height:110px;border-radius:50%;border:3px solid #d4af37;
-                    background:#241049;box-shadow:0 4px 14px rgba(0,0,0,0.4);" />
+                    background:#241049;box-shadow:0 4px 14px rgba(0,0,0,0.4);object-fit:cover;" />
         <div style="font-weight:800; color:#ffe066 !important; margin-top:0.5rem; font-size:1.05rem;">
             {character['name']}
         </div>
@@ -368,6 +399,47 @@ def flame_display(streak):
     if streak == 0:
         return "🌑"
     return "✨" * min(streak, 10)
+
+
+# ---------- OPTIONAL: YOUR OWN RIGHTS-CLEARED BACKGROUND IMAGE ----------
+# Same deal as the character photos: I can't source a real Harry Potter
+# background (Warner Bros. copyright), but if you upload an image you're
+# licensed to use to a Supabase Storage bucket named "app-background"
+# (any filename starting with "background", e.g. "background.jpg"), the
+# app will use it as the page background instead of the default gradient.
+STORAGE_BUCKET_BACKGROUND = "app-background"
+
+
+@st.cache_data(ttl=300)
+def get_background_image_url():
+    try:
+        files = supabase.storage.from_(STORAGE_BUCKET_BACKGROUND).list()
+    except Exception:
+        return None
+    for f in files:
+        if f["name"].lower().startswith("background"):
+            return supabase.storage.from_(STORAGE_BUCKET_BACKGROUND).get_public_url(f["name"])
+    return None
+
+
+# ---------- OPTIONAL: YOUR OWN RIGHTS-CLEARED BACKGROUND MUSIC ----------
+# I also can't provide the actual film score (John Williams / Warner Bros.
+# copyright). Upload a track you're licensed to use to a Supabase Storage
+# bucket named "app-audio" (any filename starting with "theme", e.g.
+# "theme.mp3") and a play/pause control will appear automatically.
+STORAGE_BUCKET_AUDIO = "app-audio"
+
+
+@st.cache_data(ttl=300)
+def get_background_audio_url():
+    try:
+        files = supabase.storage.from_(STORAGE_BUCKET_AUDIO).list()
+    except Exception:
+        return None
+    for f in files:
+        if f["name"].lower().startswith("theme"):
+            return supabase.storage.from_(STORAGE_BUCKET_AUDIO).get_public_url(f["name"])
+    return None
 
 
 # ---------- STYLING: ORIGINAL MAGIC / WIZARD-SCHOOL THEME ----------
@@ -480,6 +552,24 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+# If the user has uploaded their own rights-cleared background image,
+# layer it on top of the default gradient theme.
+_bg_image_url = get_background_image_url()
+if _bg_image_url:
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url('{_bg_image_url}') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-attachment: fixed !important;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # ---------- DATA PERSISTENCE (multi-user, Supabase-backed) ----------
 def load_users():
@@ -659,9 +749,9 @@ SPELLS = [
     {"name": "Imperio", "desc": "Forces the app to automatically check the \"show history\" box.", "cost": 10, "effect": {"type": "python_flag", "params": {"flag": "force_history_open", "duration": 0}}},
     {"name": "Avada Kedavra", "desc": "Turns the screen completely black with a green flash for 2 seconds.", "cost": 20, "effect": {"type": "avada", "params": {"duration": 2000}}},
     {"name": "Confundo", "desc": "Reverses the text direction (RTL) for 5 seconds.", "cost": 8, "effect": {"type": "rtl", "params": {"duration": 5000}}},
-    {"name": "Silencio", "desc": "Mutes the background Harry Potter theme music.", "cost": 5, "effect": {"type": "toast", "params": {"text": "\ud83d\udd07 Silencio! (No background track is wired up yet \u2014 nothing to mute.)", "icon": "\ud83d\udd07"}}},
-    {"name": "Sonorus", "desc": "Increases the volume of the background music to maximum for 5 seconds.", "cost": 6, "effect": {"type": "toast", "params": {"text": "\ud83d\udd0a Sonorus! (No background track is wired up yet \u2014 nothing to boost.)", "icon": "\ud83d\udd0a"}}},
-    {"name": "Muffliato", "desc": "Adds a buzzing static sound over the music for 5 seconds.", "cost": 5, "effect": {"type": "toast", "params": {"text": "\ud83d\udcfb Muffliato! (No background track is wired up yet \u2014 nothing to buzz.)", "icon": "\ud83d\udcfb"}}},
+    {"name": "Silencio", "desc": "Mutes the background Harry Potter theme music.", "cost": 5, "effect": {"type": "audio_volume", "params": {"volume": 0, "duration": 5000}}},
+    {"name": "Sonorus", "desc": "Increases the volume of the background music to maximum for 5 seconds.", "cost": 6, "effect": {"type": "audio_volume", "params": {"volume": 1, "duration": 5000}}},
+    {"name": "Muffliato", "desc": "Adds a buzzing static sound over the music for 5 seconds.", "cost": 5, "effect": {"type": "audio_wobble", "params": {"duration": 5000}}},
     {"name": "Engorgio", "desc": "Enlarges the daily character image to take up the whole screen.", "cost": 8, "effect": {"type": "img_scale", "params": {"selector": ".hp-character-img", "scale": 2.6, "duration": 4000}}},
     {"name": "Reducio", "desc": "Shrinks the entire app UI down to 50% size for 5 seconds.", "cost": 8, "effect": {"type": "scale", "params": {"scale": 0.55, "duration": 5000}}},
     {"name": "Tarantallegra", "desc": "Makes the submit button dance left and right rapidly.", "cost": 6, "effect": {"type": "buttons_fx", "params": {"variant": "dance", "duration": 5000}}},
@@ -780,6 +870,37 @@ def cast_effect(effect, dynamic=None):
         if(bc){ bc.style.transition='transform 0.4s'; bc.style.transform=''; }
         """
         components.html(f"<script>{js}</script>", height=0, width=0)
+        return
+
+    if etype == "audio_volume":
+        volume = p.get("volume", 1)
+        js = f"""
+        var a = window.parent.document.getElementById('hp-bg-audio');
+        if(a){{
+          var prevVol = a.volume;
+          a.volume = {volume};
+          setTimeout(function(){{ a.volume = prevVol; }}, {duration});
+        }}
+        """
+        components.html(f"<script>{js}</script>", height=0, width=0)
+        st.session_state["last_spell_effect"] = effect
+        return
+
+    if etype == "audio_wobble":
+        js = f"""
+        var a = window.parent.document.getElementById('hp-bg-audio');
+        if(a){{
+          var prevVol = a.volume;
+          var n = 0;
+          var iv = setInterval(function(){{
+            a.volume = Math.random() * 0.8 + 0.1;
+            n++;
+            if(n > {max(1, duration // 150)}){{ clearInterval(iv); a.volume = prevVol; }}
+          }}, 150);
+        }}
+        """
+        components.html(f"<script>{js}</script>", height=0, width=0)
+        st.session_state["last_spell_effect"] = effect
         return
 
     if etype == "flash":
@@ -1185,6 +1306,30 @@ if st.button("💌 A note for you, Aditi", use_container_width=True):
 if st.session_state.note_opened:
     st.markdown(f'<div class="note-card">{SHIVAMS_NOTE}</div>', unsafe_allow_html=True)
 
+# ---------- BACKGROUND MUSIC (plays your uploaded, rights-cleared track) ----------
+_audio_url = get_background_audio_url()
+if _audio_url:
+    if "music_playing" not in st.session_state:
+        st.session_state.music_playing = False
+    st.markdown(
+        f'<audio id="hp-bg-audio" src="{_audio_url}" loop preload="auto"></audio>',
+        unsafe_allow_html=True,
+    )
+    music_label = "🔇 Pause theme music" if st.session_state.music_playing else "🎵 Play theme music"
+    if st.button(music_label, use_container_width=True, key="music_toggle"):
+        st.session_state.music_playing = not st.session_state.music_playing
+        action = "play" if st.session_state.music_playing else "pause"
+        components.html(
+            f"<script>var a=window.parent.document.getElementById('hp-bg-audio'); "
+            f"if(a){{ a.{action}(); }}</script>",
+            height=0, width=0,
+        )
+    st.caption("Note: Streamlit reruns the page on every interaction, so the track may briefly "
+               "restart after some actions — that's a platform limitation, not a bug.")
+else:
+    st.caption("🎵 No background theme uploaded yet — add an audio file you're licensed to use "
+               "to the 'app-audio' Supabase Storage bucket (filename starting with 'theme') to enable music.")
+
 # ---------- LOGIN / SIGNUP ----------
 if st.session_state.user is None:
     st.markdown('<div class="login-card">', unsafe_allow_html=True)
@@ -1223,6 +1368,7 @@ else:
     uploaded_today = bool(todays_entry and todays_entry["uploaded"])
     total_solved, pending = compute_progress(record.get("history", {}), record.get("pending_reset_date"))
     daily_character = get_daily_character(today)
+    daily_character_image_url = get_character_image_url(daily_character)
     unlocked_spells = record.get("unlocked_spells", [])
     mp_earned, mp_spent, mp_balance = compute_mp(total_solved, unlocked_spells)
 
@@ -1377,7 +1523,7 @@ else:
                             if st.button("✨ Cast", key=f"cast_{name}", use_container_width=True):
                                 dynamic = {}
                                 if spell["effect"]["type"] == "duplicate":
-                                    dynamic["src"] = daily_character["image"]
+                                    dynamic["src"] = daily_character_image_url
                                 if spell["effect"]["type"] == "reveal_total":
                                     dynamic["total_solved"] = total_solved
                                 cast_effect(spell["effect"], dynamic=dynamic)
@@ -1393,7 +1539,7 @@ else:
                                 st.toast(f"🪄 {name} unlocked!", icon="🪄")
                                 dynamic = {}
                                 if spell["effect"]["type"] == "duplicate":
-                                    dynamic["src"] = daily_character["image"]
+                                    dynamic["src"] = daily_character_image_url
                                 if spell["effect"]["type"] == "reveal_total":
                                     dynamic["total_solved"] = total_solved
                                 cast_effect(spell["effect"], dynamic=dynamic)
